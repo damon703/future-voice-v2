@@ -6,7 +6,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 240
     steps:
       - uses: actions/checkout@v4
 
@@ -19,18 +19,7 @@ jobs:
         run: |
           pip3 install buildozer
 
-      - name: Trigger SDK download only
-        run: |
-          set +e
-          buildozer android debug || true
-          set -e
-
-      - name: Accept licenses and install build‑tools
-        run: |
-          yes y | ~/.buildozer/android/platform/cmdline-tools/latest/bin/sdkmanager --licenses
-          ~/.buildozer/android/platform/cmdline-tools/latest/bin/sdkmanager "build-tools;37.0.0"
-
-      - name: Build debug APK
+      - name: Full build, all SDK handled by buildozer itself
         run: buildozer android debug
 
       - name: Upload APK artifact
