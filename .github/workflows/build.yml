@@ -19,9 +19,20 @@ jobs:
         run: |
           pip3 install buildozer
 
-      - name: Accept SDK licenses and install build‑tools
+      - name: Trigger SDK download only
         run: |
-          yes | ~/.buildozer/android/platform/cmdline-tools/latest/bin/sdkmanager --licenses
+          set +e
+          buildozer android debug || true
+          set -e
+
+      - name: Accept licenses and install build‑tools
+        run: |
+          ~/.buildozer/android/platform/cmdline-tools/latest/bin/sdkmanager --licenses <<EOF
+y
+y
+y
+y
+EOF
           ~/.buildozer/android/platform/cmdline-tools/latest/bin/sdkmanager "build-tools;37.0.0"
 
       - name: Build debug APK
