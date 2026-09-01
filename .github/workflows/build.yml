@@ -27,12 +27,7 @@ jobs:
 
       - name: Accept licenses and install build‑tools
         run: |
-          ~/.buildozer/android/platform/cmdline-tools/latest/bin/sdkmanager --licenses <<EOF
-y
-y
-y
-y
-EOF
+          yes y | ~/.buildozer/android/platform/cmdline-tools/latest/bin/sdkmanager --licenses
           ~/.buildozer/android/platform/cmdline-tools/latest/bin/sdkmanager "build-tools;37.0.0"
 
       - name: Build debug APK
