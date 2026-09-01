@@ -19,9 +19,6 @@ jobs:
         run: |
           pip3 install buildozer
 
-      - name: Buildozer init
-        run: buildozer init
-
       - name: Accept SDK licenses
         run: yes | ~/.buildozer/android/platform/cmdline-tools/latest/bin/sdkmanager --licenses || true
 
